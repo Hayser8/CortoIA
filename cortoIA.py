@@ -3,7 +3,7 @@ import numpy as np
 import random
 from gym.envs.toy_text.frozen_lake import generate_random_map
 
-alpha = 0.1         
+alpha = 0.1        
 gamma = 0.99        
 epsilon = 1.0       
 epsilon_decay = 0.995  
@@ -25,7 +25,7 @@ def create_env():
     return env, random_map
 
 for episode in range(num_episodes):
-    env, _ = create_env() 
+    env, _ = create_env()  
     state, info = env.reset()
     done = False
 
@@ -38,7 +38,6 @@ for episode in range(num_episodes):
         next_state, reward, terminated, truncated, info = env.step(action)
         done = terminated or truncated
 
-        # Actualización Q-learning
         best_next_action = np.argmax(Q[next_state])
         td_target = reward + gamma * Q[next_state, best_next_action] * (1 - int(done))
         Q[state, action] += alpha * (td_target - Q[state, action])
